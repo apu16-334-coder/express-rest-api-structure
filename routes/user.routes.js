@@ -5,8 +5,8 @@ const {
     getAllUsers,  
     createUser, 
     getUser,
-    // editUser, 
-    // deleteUser 
+    editUser, 
+    deleteUser 
 } = require("../controllers/user.controller")
 
 router.route("/")
@@ -15,7 +15,7 @@ router.route("/")
 
 router.route("/:id")
     .get(getUser)
-//     .put(editUser)
-//     .delete(deleteUser);
+    .put(editUser)
+    .delete(deleteUser);
 
 module.exports = router;

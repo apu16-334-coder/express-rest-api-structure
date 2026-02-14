@@ -19,6 +19,8 @@ A RESTful API built with Express.js following a clean and scalable project struc
 - POST /users — Create user
 - GET /users — Get all users
 - GET /users/:id — Get a particular user
+- PUT /users/:id — Updating a particular user
+- Delete /users/:id — Deleting a particular user
 
 ## Tech Stack
 - Node.js
