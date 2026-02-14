@@ -1,6 +1,7 @@
 const express = require("express")
 const app = express()
 const userRouter = require("./routes/user.routes")
+const globalErrorHandler = require("./middlewares/error.middleware")
 
 app.use(express.json())
 
@@ -16,23 +17,6 @@ app.use((req, res, next) => {
     next(error);
 })
 
-app.use((err, req, res, next) => {
-    console.error(err.stack);
-
-    
-    // A. Duplicate Key (e.g., unique email, password)
-    if (err.code === 11000) {
-        err.status = 400;
-    }
-
-    if (err.name === "ValidationError" || err.name === "CastError") {
-        err.status = 400;
-    }
-
-    res.status(err.status || 500).json({
-        success: false,
-        message: err.message || "Internal Server Error"
-    });
-});
+app.use(globalErrorHandler);
 
 module.exports = app
