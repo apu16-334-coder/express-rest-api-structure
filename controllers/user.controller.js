@@ -1,4 +1,5 @@
-const users = require("../models/user.model")
+const Users = require("../models/user.model")
+const AppError = require("../utils/AppError")
 
 /**
  * @typedef {import('express').Request} Request
@@ -10,7 +11,7 @@ const users = require("../models/user.model")
 // create user
 const createUser = async(req, res , next)=>{
     try {
-        const user = await users.create(req.body);
+        const user = await Users.create(req.body);
         res.status(201).json({
             success: true,
             data: user
@@ -21,10 +22,10 @@ const createUser = async(req, res , next)=>{
 }
 
 /** @type {Controller} */
-// create user
+// get all users
 const getAllUsers = async(req, res , next)=>{
     try {
-        const allUsers = await users.find()
+        const allUsers = await Users.find()
 
         res.status(200).json({
             success: true,
@@ -35,4 +36,23 @@ const getAllUsers = async(req, res , next)=>{
     }
 }
 
-module.exports ={getAllUsers, createUser}
+/** @type {Controller} */
+// get user
+const getUser = async(req, res , next)=>{
+    try {
+        const user = await Users.findById(req.params.id)
+
+        if(! user) {
+            return next(new AppError(404, "User not Found"))
+        }
+
+        res.status(200).json({
+            success: true,
+            data: user
+        })
+    } catch (error) {
+        next(error)
+    }
+}
+
+module.exports ={getAllUsers, createUser, getUser}

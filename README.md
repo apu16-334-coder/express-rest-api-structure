@@ -18,6 +18,7 @@ A RESTful API built with Express.js following a clean and scalable project struc
 ## Implemented APIs
 - POST /users — Create user
 - GET /users — Get all users
+- GET /users/:id — Get a particular user
 
 ## Tech Stack
 - Node.js
